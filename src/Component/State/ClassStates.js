@@ -28,6 +28,7 @@ class ClassStates extends Component {
 
         return (
             <div>
+                <h2 className="text-secondary">State Vs useState</h2>
                 <p>Class State: {this.state.counter}</p>
                 <button className="btn btn-danger" onClick={this.handleClick}>State dans Class</button>
             
