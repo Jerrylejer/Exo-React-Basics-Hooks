@@ -11,7 +11,7 @@ const useEffectComp = () => {
  
     // Le montage ET l'update se font directement dans le useEffect
     useEffect (() => {
-        console.log('useEffect: Mise à jour du Title')
+        //todo console.log('useEffect: Mise à jour du Title')
         document.title = `Page cliquée ${count}`
         //! ce dernier paramètre [count] fait office de prevState et détermine s'il y a changement ou non
         //! On optimise ainsi l'update à bon escient => sans [count], l'update se fait sur tous les évènements
@@ -20,7 +20,7 @@ const useEffectComp = () => {
 
     return (
         <div>
-            <p>Mon useEffect compteur: {count}</p>
+            <p>Mon compteur avec useEffect : {count}</p>
             <button className='btn btn-primary m-2' onClick={incrementAction}>
                 Incrémentation
             </button>

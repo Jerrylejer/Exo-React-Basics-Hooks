@@ -4,8 +4,10 @@ import ClassStates from './Component/State/ClassStates';
 import UseStateComp from './Component/State/UseStateComp';
 import TodoList from './Component/State/TodoList/TodoList';
 // Cycle de vie du composant & useEffect
-import CycleVieComp from './Component/useEffect/CycleVieComp';
-import UseEffectComp from './Component/useEffect/UseEffectComp';
+import CycleVieComp from './Component/useEffect/Montage&Update/CycleVieComp';
+import UseEffectComp from './Component/useEffect/Montage&Update/UseEffectComp';
+import UseEffectUnmount from './Component/useEffect/Démontage&Class/ClassComp';
+import FunctionComp from './Component/useEffect/Démontage&useEffect/FunctionComp';
 
 function App() {
 
@@ -23,8 +25,11 @@ function App() {
       <CycleVieComp />
       <hr />
       <UseEffectComp />
+      <hr />
+      <UseEffectUnmount />
+      <hr />
+      <FunctionComp />
     </div>
-  
   );
 }
 

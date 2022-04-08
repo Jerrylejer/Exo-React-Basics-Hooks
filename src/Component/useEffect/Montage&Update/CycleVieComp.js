@@ -38,7 +38,7 @@ class CycleVieComp extends Component {
         return (
             <div>
                 <h2 className="text-secondary">Cycles de vie Vs useEffect</h2>
-                <p>Mon Class compteur: {this.state.count}</p>
+                <p>Mon compteur avec componentDidMount & componentDidUpdate : {this.state.count}</p>
                 <button className="btn btn-success m-2" onClick={this.incrementAction}>Incrémentation</button>
                 <input type="text" value={this.state.name} onChange={(e) => {this.setState({name: e.target.value})}} />
             </div>
