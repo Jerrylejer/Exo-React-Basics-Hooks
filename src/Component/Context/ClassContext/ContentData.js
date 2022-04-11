@@ -12,6 +12,7 @@ const ContentData = () => {
                             return (
                                 <div style={{color: color}}>
                                     <ul>
+                                    <h2 className="text-secondary">Context dans une Class Vs useContext Vs useState</h2>
                                         <p>Utilisation d'un Context de Class</p>
                                         <li>Nom: {user.name} </li>
                                         <li>Age: {user.age}</li>
