@@ -1,6 +1,8 @@
 import React from 'react'
 
-const ChargeBars = ({count, bgColor}) => {
+const ChargeBars = ({count, bgColor, text}) => {
+
+  // console.log('pourcentage de', text)
 
     const progressBar = {width:`${count}%`}
 
@@ -16,4 +18,4 @@ const ChargeBars = ({count, bgColor}) => {
   )
 }
 
-export default ChargeBars;
+export default React.memo(ChargeBars);

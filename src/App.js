@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 // state & useState
 import ClassStates from './Component/State/ClassStates';
 import UseStateComp from './Component/State/UseStateComp';
@@ -24,11 +24,14 @@ import {
 import Count from './Component/Reduce/SimpleString/Count';
 import Count2 from './Component/Reduce/WithObject/Count2';
 // useCallBack
-import Button from './Component/useCallBack/SansUseCallBack/Button';
-import ChargeBars from './Component/useCallBack/SansUseCallBack/ChargeBars';
+import Button from './Component/useCallBack/Button';
+import ChargeBars from './Component/useCallBack/ChargeBars';
+// useMemo
+import Profile3 from '../src/Component/useMemo/profile';
+import axios from 'axios';
 
 function App() {
-    // module useContext
+    //todo module useContext
     const [profile, setProfile] = useState({
         user: {
             name: 'Lisa',
@@ -43,7 +46,7 @@ function App() {
         },
     });
 
-    // module useCallBack
+    //todo module useCallBack
     const [chargeBarX, setChargeBarX] = useState({
         value: 0,
         btnColor: 'success',
@@ -56,16 +59,62 @@ function App() {
         increment: 35,
     });
 
-    const changeValueX = (val) => {
+    // Utilisation de useCallBAck en complément de ReactMemo pour optimiser les rendus non nécessaires
+    // ReactMemo est inefficace sur les fonctions
+    const changeValueX = useCallback((val) => {
+        // console.log('Je suis dans changeValueX')
         chargeBarX.value < 100 &&
         setChargeBarX({ ...chargeBarX, value: chargeBarX.value + val });
-    };
+    }, [chargeBarX])
 
-    const changeValueY = (val) => {
+    const changeValueY = useCallback((val) => {
+        // console.log('Je suis dans changeValueY')
         chargeBarY.value < 100 &&
         setChargeBarY({ ...chargeBarY, value: chargeBarY.value + val });
+    }, [chargeBarY])
+
+    //todo useMemo
+    // State du compteur
+    const [countA, setCountA] = useState(1);
+    // state du profile
+    const [profileA, setProfileA] = useState({});
+    // state pour le thème dark
+    const [dark, setDark] = useState(false);
+
+    // useEffect va aller chercher la data de JasonPlaceHolder
+    useEffect(() => {
+        // axios va chercher les infos
+        axios.get(`https://jsonplaceholder.typicode.com/users/${countA}`)
+        // useEffect attend le retour de la réponse (promesse) de l'Api
+        .then((response) => {
+            // Une fois reçue, on passe la data
+            console.log(response.data)
+            setProfileA(response.data)
+        })
+        .catch((error) => { 
+            console.log(error)
+        })
+        // Indiquer [countA] pour que l'effet se fasse au montage/update du countA
+    },[countA]);
+    
+    const darker = () => {
+        setDark(!dark)
+        if(!dark) {
+            document.body.classList.add("bg-dark")
+        } else {
+            document.body.classList.remove("bg-dark")
+        }
     };
 
+    const buttonTheme = dark ? "btn-light" : "btn-dark";
+
+    // Ici useMemo va mémoriser la valeur de countA et surveiller tout changement
+    const jsonOver = useMemo(() => {
+        console.log('je suis dans la fonction jsonOver')
+        return countA > 10;
+    }, [countA])
+
+    
     return (
         <div className='container text-center'>
             <h1>Basics Hooks</h1>
@@ -107,7 +156,7 @@ function App() {
             <hr className='text-danger' />
             <hr className='text-danger' />
             <hr className='text-danger' />
-            <ChargeBars count={chargeBarX.value} bgColor={chargeBarX.btnColor} />
+            <ChargeBars text="chargeBarOne" count={chargeBarX.value} bgColor={chargeBarX.btnColor} />
             <Button
                 btnColor={chargeBarX.btnColor}
                 increment={chargeBarX.increment}
@@ -116,7 +165,7 @@ function App() {
                 Count X
             </Button>
             <br />
-            <ChargeBars count={chargeBarY.value} bgColor={chargeBarY.btnColor} />
+            <ChargeBars text="chargeBarTwo" count={chargeBarY.value} bgColor={chargeBarY.btnColor} />
             <Button
                 btnColor={chargeBarY.btnColor}
                 increment={chargeBarY.increment}
@@ -124,6 +173,19 @@ function App() {
             >
                 Count y
             </Button>
+            <hr className='text-danger' />
+            <hr className='text-danger' />
+            <hr className='text-danger' />
+            <div className="container">
+                <h2 className="text-secondary">useMemo()</h2>
+                <br />
+                <button className="btn btn-primary m-3" onClick={() => setCountA(countA +1)} >Increment {countA}</button>
+                <button className={`btn ${buttonTheme} m-3`} onClick={darker} >Modifier</button>
+            </div>
+            {
+                jsonOver && <div className="alert alert-danger" role="alert">Pas plus de 10 mon bon ami !!!</div>
+            }
+            <Profile3 count={countA} profile={profileA}/>
         </div>
     );
 }

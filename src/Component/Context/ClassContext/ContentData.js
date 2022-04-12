@@ -5,7 +5,7 @@ const ContentData = () => {
     return (
         <MyContext.Consumer>
             {(user) => {
-                console.log(user);
+                // console.log(user);
                 return (
                     <ColorContext.Consumer>
                         {(color) => {
