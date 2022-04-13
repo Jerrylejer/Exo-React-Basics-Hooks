@@ -29,6 +29,8 @@ import ChargeBars from './Component/useCallBack/ChargeBars';
 // useMemo
 import Profile3 from '../src/Component/useMemo/profile';
 import axios from 'axios';
+// useRef
+import InputRef from '../src/Component/useRef/InputRef';
 
 function App() {
     //todo module useContext
@@ -88,7 +90,7 @@ function App() {
         // useEffect attend le retour de la réponse (promesse) de l'Api
         .then((response) => {
             // Une fois reçue, on passe la data
-            console.log(response.data)
+            // console.log(response.data)
             setProfileA(response.data)
         })
         .catch((error) => { 
@@ -110,9 +112,14 @@ function App() {
 
     // Ici useMemo va mémoriser la valeur de countA et surveiller tout changement
     const jsonOver = useMemo(() => {
-        console.log('je suis dans la fonction jsonOver')
+        // console.log('je suis dans la fonction jsonOver')
         return countA > 10;
     }, [countA])
+
+    // const jsonOver = () => {
+    //     console.log('je suis dans la fonction jsonOver')
+    //     return countA > 10;
+    // }
 
     
     return (
@@ -186,6 +193,13 @@ function App() {
                 jsonOver && <div className="alert alert-danger" role="alert">Pas plus de 10 mon bon ami !!!</div>
             }
             <Profile3 count={countA} profile={profileA}/>
+            <hr className='text-danger' />
+            <hr className='text-danger' />
+            <hr className='text-danger' />
+            <div className="container">
+            <h2 className="text-secondary">useRef()</h2>
+                <InputRef />
+            </div>
         </div>
     );
 }

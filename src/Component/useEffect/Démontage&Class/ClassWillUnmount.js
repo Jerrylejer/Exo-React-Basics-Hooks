@@ -10,7 +10,7 @@ class ClassWillUnmount extends Component {
     }
 
     addKeyCode = (e) => {
-        console.log(e);
+        // console.log(e);
         this.setState({
             keyCode: e.code
         })

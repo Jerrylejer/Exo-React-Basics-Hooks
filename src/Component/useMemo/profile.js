@@ -1,7 +1,7 @@
 import React from 'react'
 
 const profile = ({profile, count}) => {
-    console.log('je suis dans le profile')
+    // console.log('je suis dans le profile')
   return (
     <div>
         <ul className="list-group">
