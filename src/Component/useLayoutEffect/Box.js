@@ -8,20 +8,32 @@ function Box() {
     // Ref sur la div
     const myDiv = useRef(null);
     const myDiv2 = useRef(null);
+    const timeRef = useRef(0)
+    const timeRef2 = useRef(0)
 
-    // Je ne constate aucune différence de rendu entre le useEffect qui se lance après le rendu du DOM
-    //  et le useLayoutEffect qui se lance au rendu du DOM
+    // Visuellement, je ne constate aucune différence de rendu entre le useEffect et le useLayoutEffect 
+    // Mais différences il y a pourtant (voir les console.log)
     useEffect(() => {
         if (myDiv.current.offsetHeight < 150) {
             setHeight(height + 120);
+            // useLayoutEffect se lance après le rendu du DOM
+            // temps écoulé entre le début du montage (timeRef.current) du component et le rendu DOM (performance.now)
+            console.log(`Laps de temps useEffect: ${performance.now() - timeRef.current}`)
         }
     }, [height]);
 
     useLayoutEffect(() => {
         if (myDiv2.current.offsetHeight < 150) {
             setHeight2(height2 + 120);
+            // useLayoutEffect se lance au rendu du DOM
+            // temps écoulé entre le début du montage (timeRef2.current) du component et le rendu DOM (performance.now)
+            console.log(`Laps de temps useLayoutEffect: ${performance.now() - timeRef2.current}`)
         }
     }, [height]);
+
+    // timeRef au moment du montage du composant
+    timeRef.current = performance.now();
+    timeRef2.current = performance.now();
 
     const boxStyle = {
         width: '400px',

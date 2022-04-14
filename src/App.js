@@ -206,7 +206,7 @@ function App() {
             <hr className='text-danger' />
             <hr className='text-danger' />
             <div className="container">
-            <h2 className="text-secondary">useLayoutEffect Vs useEffect ? Aucune différence !</h2>
+            <h2 className="text-secondary">useLayoutEffect Vs useEffect ? Légers décalages de rendus !</h2>
                 <Box />
             </div>
         </div>
